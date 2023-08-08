@@ -1,1 +1,0 @@
-# tenpo-challenge
