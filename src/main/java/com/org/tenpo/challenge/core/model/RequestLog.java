@@ -8,16 +8,17 @@ public class RequestLog {
 
     private Double requestNumberB;
 
-    private Double response;
+    private Double result;
 
     private final Date createdAt = new Date();
 
     public RequestLog() {
     }
 
-    public RequestLog(Double requestNumberA, Double requestNumberB) {
+    public RequestLog(Double requestNumberA, Double requestNumberB, Double result) {
         this.requestNumberA = requestNumberA;
         this.requestNumberB = requestNumberB;
+        this.result = result;
     }
 
     public Double getRequestNumberA() {
@@ -28,8 +29,8 @@ public class RequestLog {
         return requestNumberB;
     }
 
-    public Double getResponse() {
-        return response;
+    public Double getResult() {
+        return result;
     }
 
     public Date getCreatedAt() {
@@ -44,7 +45,7 @@ public class RequestLog {
         this.requestNumberB = requestNumberB;
     }
 
-    public void setResponse(Double response) {
-        this.response = response;
+    public void setResult(Double result) {
+        this.result = result;
     }
 }

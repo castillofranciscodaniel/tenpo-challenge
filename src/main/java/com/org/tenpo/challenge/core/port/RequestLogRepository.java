@@ -6,7 +6,7 @@ import reactor.core.publisher.Mono;
 
 public interface RequestLogRepository {
 
-    Mono<RequestLog> save();
+    Mono<RequestLog> save(RequestLog requestLog);
 
     Mono<SimplePage<RequestLog>> find();
 
