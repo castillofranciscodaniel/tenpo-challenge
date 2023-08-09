@@ -29,7 +29,13 @@ public class FindPaginatedRequestLogTest {
     @Test
     public void execute_ok_Test() {
 
-        var simplePage = new SimplePage<RequestLog>(0, 10, 10L, 100L, List.of(new RequestLog(), new RequestLog()));
+        var simplePage = new SimplePage<RequestLog>(
+                0,
+                10,
+                10L,
+                100L,
+                List.of(new RequestLog(), new RequestLog())
+        );
 
         when(requestLogRepository.find(0, 10)).thenReturn(Mono.just(simplePage));
 
