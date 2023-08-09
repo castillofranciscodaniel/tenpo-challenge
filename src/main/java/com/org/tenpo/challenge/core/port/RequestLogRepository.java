@@ -1,4 +1,4 @@
-package com.org.tenpo.challenge.core.repository;
+package com.org.tenpo.challenge.core.port;
 
 import com.org.tenpo.challenge.core.model.RequestLog;
 import com.org.tenpo.challenge.core.model.SimplePage;
