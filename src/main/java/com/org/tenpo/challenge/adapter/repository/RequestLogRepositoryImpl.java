@@ -25,6 +25,11 @@ public class RequestLogRepositoryImpl implements RequestLogRepository {
     }
 
     @Override
+    public Mono<RequestLog> save(RequestLog requestLog) {
+        return this.template.insert(new RequestLogEntity(requestLog)).map(RequestLogEntity::toModel);
+    }
+
+    @Override
     public Mono<SimplePage<RequestLog>> find(SimplePage<RequestLog> requestLogSimplePage) {
 
         Integer page = requestLogSimplePage.getPage();
