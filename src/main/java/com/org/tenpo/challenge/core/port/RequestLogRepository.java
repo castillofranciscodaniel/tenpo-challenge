@@ -8,6 +8,6 @@ public interface RequestLogRepository {
 
     Mono<RequestLog> save(RequestLog requestLog);
 
-    Mono<SimplePage<RequestLog>> find();
+    Mono<SimplePage<RequestLog>> find(SimplePage<RequestLog> simplePage);
 
 }

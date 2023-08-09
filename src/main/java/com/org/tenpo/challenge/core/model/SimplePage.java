@@ -12,6 +12,11 @@ public class SimplePage<E> {
     public SimplePage() {
     }
 
+    public SimplePage(Integer page, Integer pageSize) {
+        this.page = page;
+        this.pageSize = pageSize;
+    }
+
     public SimplePage(Integer page, Integer pageSize, Long totalPages, Long totalElement, Collection<E> content) {
         this.page = page;
         this.pageSize = pageSize;
