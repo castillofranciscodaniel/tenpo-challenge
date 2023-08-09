@@ -12,11 +12,6 @@ public class SimplePage<E> {
     public SimplePage() {
     }
 
-    public SimplePage(Integer page, Integer size) {
-        this.page = page;
-        this.size = size;
-    }
-
     public SimplePage(Integer page, Integer size, Long totalPages, Long totalElement, Collection<E> content) {
         this.page = page;
         this.size = size;
