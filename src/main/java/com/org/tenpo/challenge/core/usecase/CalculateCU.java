@@ -25,7 +25,7 @@ public class CalculateCU {
 
         double sum = numberA + numberB;
 
-        return externalInformationRepository.findPercentage().map(percentage -> {
+        return this.externalInformationRepository.findPercentage().map(percentage -> {
                     double result = sum + (sum * percentage / 100);
 
                     // utilizamos subscribeOn(Schedulers.boundedElastic()) para especificar que queremos que esta
