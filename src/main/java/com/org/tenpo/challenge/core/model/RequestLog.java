@@ -1,9 +1,11 @@
 package com.org.tenpo.challenge.core.model;
 
 import java.util.Date;
+import java.util.UUID;
 
 public class RequestLog {
 
+    private String id = UUID.randomUUID().toString();
     private Double requestNumberA;
 
     private Double requestNumberB;

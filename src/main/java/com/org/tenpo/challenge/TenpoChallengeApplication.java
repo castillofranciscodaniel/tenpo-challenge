@@ -2,12 +2,14 @@ package com.org.tenpo.challenge;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.data.r2dbc.repository.config.EnableR2dbcRepositories;
 
 @SpringBootApplication
-public class TempoChallengeApplication {
+@EnableR2dbcRepositories
+public class TenpoChallengeApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(TempoChallengeApplication.class, args);
+		SpringApplication.run(TenpoChallengeApplication.class, args);
 	}
 
 }

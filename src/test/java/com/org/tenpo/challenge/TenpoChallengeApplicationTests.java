@@ -1,13 +1,14 @@
 package com.org.tenpo.challenge;
 
+
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class TempoChallengeApplicationTests {
+class TenpoChallengeApplicationTests {
 
-	@Test
-	void contextLoads() {
-	}
+    @Test
+    void contextLoads() {
+    }
 
 }
