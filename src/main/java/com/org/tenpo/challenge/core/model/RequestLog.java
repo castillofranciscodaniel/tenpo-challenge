@@ -4,31 +4,31 @@ import java.util.Date;
 
 public class RequestLog {
 
-    private Long requestNumberA;
+    private Double requestNumberA;
 
-    private Long requestNumberB;
+    private Double requestNumberB;
 
-    private Long response;
+    private Double response;
 
     private final Date createdAt = new Date();
 
     public RequestLog() {
     }
 
-    public RequestLog(Long requestNumberA, Long requestNumberB) {
+    public RequestLog(Double requestNumberA, Double requestNumberB) {
         this.requestNumberA = requestNumberA;
         this.requestNumberB = requestNumberB;
     }
 
-    public Long getRequestNumberA() {
+    public Double getRequestNumberA() {
         return requestNumberA;
     }
 
-    public Long getRequestNumberB() {
+    public Double getRequestNumberB() {
         return requestNumberB;
     }
 
-    public Long getResponse() {
+    public Double getResponse() {
         return response;
     }
 
@@ -36,15 +36,15 @@ public class RequestLog {
         return createdAt;
     }
 
-    public void setRequestNumberA(Long requestNumberA) {
+    public void setRequestNumberA(Double requestNumberA) {
         this.requestNumberA = requestNumberA;
     }
 
-    public void setRequestNumberB(Long requestNumberB) {
+    public void setRequestNumberB(Double requestNumberB) {
         this.requestNumberB = requestNumberB;
     }
 
-    public void setResponse(Long response) {
+    public void setResponse(Double response) {
         this.response = response;
     }
 }
