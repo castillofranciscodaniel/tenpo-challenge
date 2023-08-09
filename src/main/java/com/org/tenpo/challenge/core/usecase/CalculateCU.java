@@ -32,6 +32,7 @@ public class CalculateCU {
                     // tarea se ejecute en un grupo de subprocesos elástico (con capacidad limitada) en segundo plano.
 
                     RequestLog requestLog = new RequestLog(numberA, numberB, result);
+
                     this.requestLogRepository.save(requestLog).subscribeOn(Schedulers.boundedElastic())
                             .subscribe();
 
