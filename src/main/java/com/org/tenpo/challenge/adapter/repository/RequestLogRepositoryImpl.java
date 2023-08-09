@@ -30,10 +30,7 @@ public class RequestLogRepositoryImpl implements RequestLogRepository {
     }
 
     @Override
-    public Mono<SimplePage<RequestLog>> find(SimplePage<RequestLog> requestLogSimplePage) {
-
-        Integer page = requestLogSimplePage.getPage();
-        Integer size = requestLogSimplePage.getPageSize();
+    public Mono<SimplePage<RequestLog>> find(Integer page, Integer size) {
 
         Pageable pageable = Pageable.ofSize(size).withPage(page);
 
@@ -51,7 +48,7 @@ public class RequestLogRepositoryImpl implements RequestLogRepository {
         var count = tuple.getT2();
 
         var preTotalPage = (count / size);
-        var totalPage = (count % size == 0L) ? preTotalPage : preTotalPage + 1;
+        var totalPage = (count % size == 0) ? preTotalPage : preTotalPage + 1;
 
         return new SimplePage<>(
                 page,

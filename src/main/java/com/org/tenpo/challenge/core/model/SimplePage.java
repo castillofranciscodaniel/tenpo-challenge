@@ -4,7 +4,7 @@ import java.util.Collection;
 
 public class SimplePage<E> {
     private Integer page;
-    private Integer pageSize;
+    private Integer size;
     private Long totalPages;
     private Long totalElement;
     private Collection<E> content;
@@ -12,14 +12,14 @@ public class SimplePage<E> {
     public SimplePage() {
     }
 
-    public SimplePage(Integer page, Integer pageSize) {
+    public SimplePage(Integer page, Integer size) {
         this.page = page;
-        this.pageSize = pageSize;
+        this.size = size;
     }
 
-    public SimplePage(Integer page, Integer pageSize, Long totalPages, Long totalElement, Collection<E> content) {
+    public SimplePage(Integer page, Integer size, Long totalPages, Long totalElement, Collection<E> content) {
         this.page = page;
-        this.pageSize = pageSize;
+        this.size = size;
         this.totalPages = totalPages;
         this.totalElement = totalElement;
         this.content = content;
@@ -33,12 +33,12 @@ public class SimplePage<E> {
         this.page = page;
     }
 
-    public Integer getPageSize() {
-        return pageSize;
+    public Integer getSize() {
+        return size;
     }
 
-    public void setPageSize(Integer pageSize) {
-        this.pageSize = pageSize;
+    public void setSize(Integer size) {
+        this.size = size;
     }
 
     public Long getTotalPages() {

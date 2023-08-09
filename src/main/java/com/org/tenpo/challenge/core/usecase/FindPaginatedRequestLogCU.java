@@ -13,7 +13,7 @@ public class FindPaginatedRequestLogCU {
         this.requestLogRepository = requestLogRepository;
     }
 
-    public Mono<SimplePage<RequestLog>> execute(SimplePage<RequestLog> simplePage) {
-        return this.requestLogRepository.find(simplePage);
+    public Mono<SimplePage<RequestLog>> execute(Integer page, Integer size) {
+        return this.requestLogRepository.find(page, size);
     }
 }
