@@ -18,6 +18,10 @@ public class PercentageMockRequest {
 
     @GetMapping
     public Integer findPaginatedRequestLog() {
-        return random.nextInt(100) + 1;
+        var number = random.nextInt(130) + 1;
+
+        if (number > 100) throw new RuntimeException("fake error mock");
+
+        return number;
     }
 }
