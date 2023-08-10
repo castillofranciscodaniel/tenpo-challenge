@@ -28,6 +28,7 @@ public class CalculateController {
         this.findPaginatedRequestLogCU = findPaginatedRequestLogCU;
 
         Bandwidth limit = Bandwidth.classic(3, Refill.greedy(3, Duration.ofMinutes(1)));
+
         this.bucket = Bucket.builder()
                 .addLimit(limit)
                 .build();
@@ -42,4 +43,5 @@ public class CalculateController {
     public Mono<SimplePage<RequestLog>> findPaginatedRequestLog(@RequestParam Integer page, @RequestParam Integer size) {
         return this.findPaginatedRequestLogCU.execute(page, size);
     }
+
 }
