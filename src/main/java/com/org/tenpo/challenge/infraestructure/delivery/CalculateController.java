@@ -8,14 +8,13 @@ import com.org.tenpo.challenge.infraestructure.delivery.dto.CalculateRequest;
 import io.github.bucket4j.Bandwidth;
 import io.github.bucket4j.Bucket;
 import io.github.bucket4j.Refill;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Mono;
 
 import java.time.Duration;
 
-@Controller
-@RestController("calculate")
+@RestController()
+@RequestMapping("/calculate")
 public class CalculateController {
 
     private final CalculateCU calculateCU;
@@ -39,7 +38,7 @@ public class CalculateController {
         return this.calculateCU.execute(calculateRequest.getNumberA(), calculateRequest.getNumberB());
     }
 
-    @GetMapping("history")
+    @GetMapping("/history")
     public Mono<SimplePage<RequestLog>> findPaginatedRequestLog(@RequestParam Integer page, @RequestParam Integer size) {
         return this.findPaginatedRequestLogCU.execute(page, size);
     }
