@@ -22,7 +22,7 @@ public class RequestLogEntity {
 
     private Double result;
 
-    @Column("createdAt")
+    @Column("created_at")
     private Date createdAt;
 
     public RequestLogEntity() {
