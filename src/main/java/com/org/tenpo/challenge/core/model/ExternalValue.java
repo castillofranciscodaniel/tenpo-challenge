@@ -8,6 +8,9 @@ public class ExternalValue {
 
     private Date createdAt;
 
+    public ExternalValue() {
+    }
+
     public ExternalValue(Double percentage) {
         this.percentage = percentage;
         this.createdAt = new Date();

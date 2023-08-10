@@ -1,9 +1,11 @@
 package com.org.tenpo.challenge.infraestructure.config;
 
 import com.org.tenpo.challenge.core.model.ExternalValue;
+import com.org.tenpo.challenge.core.port.ExternalInformationCacheRepository;
 import com.org.tenpo.challenge.core.port.ExternalInformationRepository;
 import com.org.tenpo.challenge.core.port.RequestLogRepository;
 import com.org.tenpo.challenge.core.usecase.CalculateCU;
+import com.org.tenpo.challenge.core.usecase.CalculateService;
 import com.org.tenpo.challenge.core.usecase.FindPaginatedRequestLogCU;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Bean;
@@ -36,20 +38,14 @@ public class SpringConfiguration {
     }
 
     @Bean
-    public CalculateCU newCalculateCU(RequestLogRepository requestLogRepository, ExternalInformationRepository externalInformationRepository) {
-        return new CalculateCU(requestLogRepository, externalInformationRepository);
+    public CalculateService newCalculateService(ExternalInformationRepository externalInformationRepository,
+                                                ExternalInformationCacheRepository externalInformationCacheRepository) {
+        return new CalculateService(externalInformationRepository, externalInformationCacheRepository);
     }
 
     @Bean
-    public ReactiveRedisOperations<String, ExternalValue> redisOperations(ReactiveRedisConnectionFactory factory) {
-        Jackson2JsonRedisSerializer<ExternalValue> serializer = new Jackson2JsonRedisSerializer<>(ExternalValue.class);
-
-        RedisSerializationContext.RedisSerializationContextBuilder<String, ExternalValue> builder =
-                RedisSerializationContext.newSerializationContext(new StringRedisSerializer());
-
-        RedisSerializationContext<String, ExternalValue> context = builder.value(serializer).build();
-
-        return new ReactiveRedisTemplate<>(factory, context);
+    public CalculateCU newCalculateCU(RequestLogRepository requestLogRepository, CalculateService calculateService) {
+        return new CalculateCU(requestLogRepository, calculateService);
     }
 
 }
