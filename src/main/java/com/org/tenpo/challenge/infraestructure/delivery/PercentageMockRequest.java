@@ -1,18 +1,23 @@
 package com.org.tenpo.challenge.infraestructure.delivery;
 
-import com.org.tenpo.challenge.core.model.RequestLog;
-import com.org.tenpo.challenge.core.model.SimplePage;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import reactor.core.publisher.Mono;
+
+import java.util.Random;
 
 @Controller
-@RestController("percentaje")
-public class PercentajeMockRequest {
+@RestController("percentage")
+public class PercentageMockRequest {
+
+    private final Random random;
+
+    public PercentageMockRequest() {
+        this.random = new Random();
+    }
 
     @GetMapping
-    public Mono<Integer> findPaginatedRequestLog() {
-        return ;
-    }}
+    public Integer findPaginatedRequestLog() {
+        return random.nextInt(100) + 1;
+    }
+}
