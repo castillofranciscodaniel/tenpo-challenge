@@ -23,7 +23,7 @@ public class CalculateCUTest {
     private RequestLogRepository requestLogRepository;
 
     @MockBean
-    private ExternalInformationRepository externalInformationRepository;
+    private CalculateService calculateService;
 
     @Autowired
     private CalculateCU calculateCU;
@@ -38,14 +38,14 @@ public class CalculateCUTest {
 
         var requestLog = new RequestLog(numberA, numberB, result);
 
-        when(externalInformationRepository.findPercentage()).thenReturn(Mono.just(percentage));
+        when(calculateService.findPercentage()).thenReturn(Mono.just(percentage));
         when(requestLogRepository.save(any())).thenReturn(Mono.just(requestLog));
 
         StepVerifier.create(calculateCU.execute(numberA, numberB))
                 .expectNext(16.5)
                 .verifyComplete();
 
-        verify(externalInformationRepository, times(1)).findPercentage();
+        verify(calculateService, times(1)).findPercentage();
         verify(requestLogRepository, times(1)).save(any());
     }
 }
