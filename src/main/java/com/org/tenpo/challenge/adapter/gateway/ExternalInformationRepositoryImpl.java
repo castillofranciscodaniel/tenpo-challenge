@@ -17,7 +17,7 @@ public class ExternalInformationRepositoryImpl implements ExternalInformationRep
     @Override
     public Mono<Double> findPercentage() {
         return webClient.get()
-                .uri("/percentage")
+                .uri("http://localhost:8080/percentage")
                 .retrieve()
                 .onStatus(httpStatus -> !httpStatus.is2xxSuccessful(), response -> Mono.error(new RuntimeException("Error when calling")))
                 .bodyToMono(Double.class);
