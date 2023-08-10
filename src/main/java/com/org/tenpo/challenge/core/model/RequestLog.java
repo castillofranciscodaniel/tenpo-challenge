@@ -5,7 +5,7 @@ import java.util.UUID;
 
 public class RequestLog {
 
-    private String id = UUID.randomUUID().toString();
+    private final String id = UUID.randomUUID().toString();
     private Double requestNumberA;
 
     private Double requestNumberB;
@@ -21,6 +21,10 @@ public class RequestLog {
         this.requestNumberA = requestNumberA;
         this.requestNumberB = requestNumberB;
         this.result = result;
+    }
+
+    public String getId() {
+        return id;
     }
 
     public Double getRequestNumberA() {
