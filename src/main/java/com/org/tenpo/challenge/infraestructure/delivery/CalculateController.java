@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Mono;
 
 import java.time.Duration;
+import java.util.Map;
 
 @RestController()
 @RequestMapping("/calculate")
@@ -35,8 +36,10 @@ public class CalculateController {
     }
 
     @PostMapping
-    public Mono<Double> calculate(@RequestBody CalculateRequest calculateRequest) {
-        return this.calculateCU.execute(calculateRequest.getNumberA(), calculateRequest.getNumberB());
+    public Mono<Map<String, Double>> calculate(@RequestBody CalculateRequest calculateRequest) {
+        return this.calculateCU.execute(calculateRequest.getNumberA(), calculateRequest.getNumberB()).map(result ->
+                Map.of("result", result)
+        );
     }
 
     @GetMapping("/history")
