@@ -48,4 +48,6 @@ public class CalculateCUTest {
         verify(calculateService, times(1)).findPercentage();
         verify(requestLogRepository, times(1)).save(any());
     }
+
+    // TODO: hacer test para chequear que si el save falla, no impacte en el CU
 }

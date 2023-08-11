@@ -58,3 +58,9 @@ public class CalculateController {
     }
 
 }
+
+// TODO: mapear errores generales para 4xx
+// TODO: hacer test de ports
+// TODO: dockerhub público
+// TODO: Postman Collection o Swagger
+// TODO: Readme

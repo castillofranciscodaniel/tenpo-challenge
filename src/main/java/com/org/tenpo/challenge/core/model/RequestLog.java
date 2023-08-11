@@ -6,6 +6,7 @@ import java.util.UUID;
 public class RequestLog {
 
     private String id;
+
     private Double requestNumberA;
 
     private Double requestNumberB;

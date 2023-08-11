@@ -16,6 +16,7 @@ public class CalculateCU {
         this.calculateService = calculateService;
     }
 
+    // TODO: falta guardar los casos no exitosos
     public Mono<Double> execute(Double numberA, Double numberB) {
 
         double sum = numberA + numberB;
