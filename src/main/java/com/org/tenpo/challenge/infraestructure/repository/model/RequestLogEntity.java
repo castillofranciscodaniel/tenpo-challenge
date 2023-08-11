@@ -8,6 +8,7 @@ import org.springframework.data.relational.core.mapping.Table;
 
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.util.Date;
 import java.util.Objects;
 
 @Table("request_log")
@@ -46,6 +47,8 @@ public class RequestLogEntity {
     public RequestLog toModel() {
         var model = new RequestLog();
         BeanUtils.copyProperties(this, model);
+        model.setCreatedAt(Date.from(this.getCreatedAt().atZone(ZoneId.systemDefault()).toInstant()));
+
         return model;
     }
 

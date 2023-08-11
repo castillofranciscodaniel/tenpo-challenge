@@ -72,6 +72,10 @@ public class RequestLog {
         return createdAt;
     }
 
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -83,5 +87,16 @@ public class RequestLog {
     @Override
     public int hashCode() {
         return Objects.hash(id, requestNumberA, requestNumberB, result, createdAt);
+    }
+
+    @Override
+    public String toString() {
+        return "RequestLog{" +
+                "id='" + id + '\'' +
+                ", requestNumberA=" + requestNumberA +
+                ", requestNumberB=" + requestNumberB +
+                ", result=" + result +
+                ", createdAt=" + createdAt +
+                '}';
     }
 }

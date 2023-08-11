@@ -37,4 +37,30 @@ public class RequestLogEntityTest {
 
     }
 
+    @Test
+    public void modelToEntity() throws ParseException {
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date date = dateFormat.parse("2023-08-10 15:30:00");
+
+        RequestLogEntity requestLogEntity = new RequestLogEntity(
+                "1",
+                5.0,
+                5.0,
+                10.0,
+                LocalDateTime.of(2023, 8, 10, 15, 30, 0)
+        );
+
+        RequestLog requestLog = new RequestLog(
+                "1",
+                5.0,
+                5.0,
+                10.0,
+                date
+        );
+
+        Assert.assertEquals(requestLog, requestLogEntity.toModel());
+
+    }
+
 }
