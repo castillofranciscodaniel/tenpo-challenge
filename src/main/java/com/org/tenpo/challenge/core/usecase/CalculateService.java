@@ -1,5 +1,6 @@
 package com.org.tenpo.challenge.core.usecase;
 
+import com.org.tenpo.challenge.core.model.ExternalValue;
 import com.org.tenpo.challenge.core.port.ExternalInformationCacheRepository;
 import com.org.tenpo.challenge.core.port.ExternalInformationRepository;
 import reactor.core.publisher.Mono;
@@ -22,7 +23,9 @@ public class CalculateService {
     }
 
     public Mono<Double> findPercentage() {
-        return this.externalInformationCacheRepository.findPercentage().flatMap(externalValue -> {
+        return this.externalInformationCacheRepository.findPercentage()
+                .switchIfEmpty(this.findExternalAndSaveInCache().map(ExternalValue::new))
+                .flatMap(externalValue -> {
 
             Mono<Double> defaultReturn = Mono.just(externalValue.getPercentage());
 
@@ -34,14 +37,16 @@ public class CalculateService {
             }
 
             return defaultReturn;
-        }).switchIfEmpty(this.findExternalAndSaveInCache());
+        });
     }
 
     private Mono<Double> findExternalAndSaveInCache() {
         return this.externalInformationRepository.findPercentage()
                 .flatMap(percentage -> this.externalInformationCacheRepository.savePercentage(percentage)
-                        .filter(Boolean::booleanValue)
-                        .map(x -> percentage)
+                        .map(x -> {
+                            // TODO: LOG AVISANDO, pero no hay porque no enviar la ultima data
+                            return percentage;
+                        })
                 )
                 .retryWhen(Retry.fixedDelay(MAX_RETRIES, Duration.ofSeconds(1)));  // Reintentar 3 veces con intervalo de 1 segundo
 

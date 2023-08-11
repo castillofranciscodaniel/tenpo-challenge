@@ -16,19 +16,17 @@ public class ExternalValue {
         this.createdAt = new Date();
     }
 
-    public Double getPercentage() {
-        return percentage;
+    public ExternalValue(Double percentage, Date createdAt) {
+        this.percentage = percentage;
+        this.createdAt = createdAt;
     }
 
-    public void setPercentage(Double percentage) {
-        this.percentage = percentage;
+    public Double getPercentage() {
+        return percentage;
     }
 
     public Date getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(Date createdAt) {
-        this.createdAt = createdAt;
-    }
 }
