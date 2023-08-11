@@ -1,6 +1,7 @@
 package com.org.tenpo.challenge.core.usecase;
 
 import com.org.tenpo.challenge.core.model.RequestLog;
+import com.org.tenpo.challenge.core.model.RequestLogState;
 import com.org.tenpo.challenge.core.port.RequestLogRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -35,7 +36,7 @@ public class CalculateCUTest {
         var percentage = 10.0;
         var result = 16.5;
 
-        var requestLog = new RequestLog(numberA, numberB, result);
+        var requestLog = new RequestLog(numberA, numberB, result, RequestLogState.SUCCESSFUL);
 
         when(calculateService.findPercentage()).thenReturn(Mono.just(percentage));
         when(requestLogRepository.save(any())).thenReturn(Mono.just(requestLog));

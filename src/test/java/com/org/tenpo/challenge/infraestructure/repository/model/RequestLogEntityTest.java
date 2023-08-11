@@ -1,6 +1,7 @@
 package com.org.tenpo.challenge.infraestructure.repository.model;
 
 import com.org.tenpo.challenge.core.model.RequestLog;
+import com.org.tenpo.challenge.core.model.RequestLogState;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -22,7 +23,8 @@ public class RequestLogEntityTest {
                 5.0,
                 5.0,
                 10.0,
-                LocalDateTime.of(2023, 8, 10, 15, 30, 0)
+                LocalDateTime.of(2023, 8, 10, 15, 30, 0),
+                RequestLogState.SUCCESSFUL
         );
 
         RequestLog requestLog = new RequestLog(
@@ -30,7 +32,8 @@ public class RequestLogEntityTest {
                 5.0,
                 5.0,
                 10.0,
-                date
+                date,
+                RequestLogState.SUCCESSFUL
         );
 
         Assert.assertEquals(requestLogEntity, new RequestLogEntity(requestLog));
@@ -48,7 +51,8 @@ public class RequestLogEntityTest {
                 5.0,
                 5.0,
                 10.0,
-                LocalDateTime.of(2023, 8, 10, 15, 30, 0)
+                LocalDateTime.of(2023, 8, 10, 15, 30, 0),
+                RequestLogState.ERROR
         );
 
         RequestLog requestLog = new RequestLog(
@@ -56,7 +60,8 @@ public class RequestLogEntityTest {
                 5.0,
                 5.0,
                 10.0,
-                date
+                date,
+                RequestLogState.ERROR
         );
 
         Assert.assertEquals(requestLog, requestLogEntity.toModel());

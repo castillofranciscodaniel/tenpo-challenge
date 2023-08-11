@@ -16,24 +16,28 @@ public class RequestLog {
 
     private Date createdAt;
 
+    private RequestLogState state;
+
     public RequestLog() {
         this.id = UUID.randomUUID().toString();
     }
 
-    public RequestLog(Double requestNumberA, Double requestNumberB, Double result) {
+    public RequestLog(Double requestNumberA, Double requestNumberB, Double result, RequestLogState state) {
         this.id = UUID.randomUUID().toString();
         this.requestNumberA = requestNumberA;
         this.requestNumberB = requestNumberB;
         this.result = result;
         this.createdAt = new Date();
+        this.state = state;
     }
 
-    public RequestLog(String id, Double requestNumberA, Double requestNumberB, Double result, Date createdAt) {
+    public RequestLog(String id, Double requestNumberA, Double requestNumberB, Double result, Date createdAt, RequestLogState state) {
         this.id = id;
         this.requestNumberA = requestNumberA;
         this.requestNumberB = requestNumberB;
         this.result = result;
         this.createdAt = createdAt;
+        this.state = state;
     }
 
     public String getId() {
@@ -74,6 +78,14 @@ public class RequestLog {
 
     public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public RequestLogState getState() {
+        return state;
+    }
+
+    public void setState(RequestLogState state) {
+        this.state = state;
     }
 
     @Override

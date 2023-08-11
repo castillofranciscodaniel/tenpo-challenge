@@ -1,6 +1,7 @@
 package com.org.tenpo.challenge.core.usecase;
 
 import com.org.tenpo.challenge.core.model.RequestLog;
+import com.org.tenpo.challenge.core.model.RequestLogState;
 import com.org.tenpo.challenge.core.port.RequestLogRepository;
 import reactor.core.publisher.Mono;
 import reactor.core.scheduler.Schedulers;
@@ -27,7 +28,7 @@ public class CalculateCU {
             // utilizamos subscribeOn(Schedulers.boundedElastic()) para especificar que queremos que esta
             // tarea se ejecute en un grupo de subprocesos elástico (con capacidad limitada) en segundo plano.
 
-            RequestLog requestLog = new RequestLog(numberA, numberB, result);
+            RequestLog requestLog = new RequestLog(numberA, numberB, result, RequestLogState.SUCCESSFUL);
 
             this.requestLogRepository.save(requestLog).subscribeOn(Schedulers.boundedElastic())
                     .subscribe();

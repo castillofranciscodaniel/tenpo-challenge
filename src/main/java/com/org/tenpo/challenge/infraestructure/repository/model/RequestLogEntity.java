@@ -1,6 +1,7 @@
 package com.org.tenpo.challenge.infraestructure.repository.model;
 
 import com.org.tenpo.challenge.core.model.RequestLog;
+import com.org.tenpo.challenge.core.model.RequestLogState;
 import org.springframework.beans.BeanUtils;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Column;
@@ -28,6 +29,8 @@ public class RequestLogEntity {
     @Column("created_at")
     private LocalDateTime createdAt;
 
+    private RequestLogState state;
+
     public RequestLogEntity() {
     }
 
@@ -36,12 +39,14 @@ public class RequestLogEntity {
         this.setCreatedAt(requestLog.getCreatedAt().toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime());
     }
 
-    public RequestLogEntity(String id, Double requestNumberA, Double requestNumberB, Double result, LocalDateTime createdAt) {
+    public RequestLogEntity(String id, Double requestNumberA, Double requestNumberB,
+                            Double result, LocalDateTime createdAt, RequestLogState state) {
         this.id = id;
         this.requestNumberA = requestNumberA;
         this.requestNumberB = requestNumberB;
         this.result = result;
         this.createdAt = createdAt;
+        this.state = state;
     }
 
     public RequestLog toModel() {
@@ -90,6 +95,14 @@ public class RequestLogEntity {
 
     public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public RequestLogState getState() {
+        return state;
+    }
+
+    public void setState(RequestLogState state) {
+        this.state = state;
     }
 
     @Override
