@@ -5,7 +5,7 @@ import java.util.UUID;
 
 public class RequestLog {
 
-    private final String id = UUID.randomUUID().toString();
+    private String id;
     private Double requestNumberA;
 
     private Double requestNumberB;
@@ -15,9 +15,11 @@ public class RequestLog {
     private final Date createdAt = new Date();
 
     public RequestLog() {
+        this.id = UUID.randomUUID().toString();
     }
 
     public RequestLog(Double requestNumberA, Double requestNumberB, Double result) {
+        this.id = UUID.randomUUID().toString();
         this.requestNumberA = requestNumberA;
         this.requestNumberB = requestNumberB;
         this.result = result;
@@ -27,31 +29,35 @@ public class RequestLog {
         return id;
     }
 
+    public void setId(String id) {
+        this.id = id;
+    }
+
     public Double getRequestNumberA() {
         return requestNumberA;
-    }
-
-    public Double getRequestNumberB() {
-        return requestNumberB;
-    }
-
-    public Double getResult() {
-        return result;
-    }
-
-    public Date getCreatedAt() {
-        return createdAt;
     }
 
     public void setRequestNumberA(Double requestNumberA) {
         this.requestNumberA = requestNumberA;
     }
 
+    public Double getRequestNumberB() {
+        return requestNumberB;
+    }
+
     public void setRequestNumberB(Double requestNumberB) {
         this.requestNumberB = requestNumberB;
     }
 
+    public Double getResult() {
+        return result;
+    }
+
     public void setResult(Double result) {
         this.result = result;
+    }
+
+    public Date getCreatedAt() {
+        return createdAt;
     }
 }

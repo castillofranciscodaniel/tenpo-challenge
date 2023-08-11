@@ -1,11 +1,14 @@
 package com.org.tenpo.challenge.infraestructure.repository.model;
 
 import com.org.tenpo.challenge.core.model.RequestLog;
+import com.org.tenpo.challenge.infraestructure.config.LocalDateTimeToDateConverter;
 import org.springframework.beans.BeanUtils;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Column;
 import org.springframework.data.relational.core.mapping.Table;
 
+import javax.persistence.Convert;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Table("request_log")
@@ -23,7 +26,7 @@ public class RequestLogEntity {
     private Double result;
 
     @Column("created_at")
-    private Date createdAt;
+    private LocalDateTime createdAt;
 
     public RequestLogEntity() {
     }
@@ -32,7 +35,7 @@ public class RequestLogEntity {
         BeanUtils.copyProperties(requestLog, this);
     }
 
-    public RequestLogEntity(String id, Double requestNumberA, Double requestNumberB, Double result, Date createdAt) {
+    public RequestLogEntity(String id, Double requestNumberA, Double requestNumberB, Double result, LocalDateTime createdAt) {
         this.id = id;
         this.requestNumberA = requestNumberA;
         this.requestNumberB = requestNumberB;
@@ -78,11 +81,5 @@ public class RequestLogEntity {
         this.result = result;
     }
 
-    public Date getCreatedAt() {
-        return createdAt;
-    }
 
-    public void setCreatedAt(Date createdAt) {
-        this.createdAt = createdAt;
-    }
 }
