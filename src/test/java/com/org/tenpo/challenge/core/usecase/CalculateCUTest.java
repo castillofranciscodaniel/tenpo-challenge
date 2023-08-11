@@ -1,7 +1,6 @@
 package com.org.tenpo.challenge.core.usecase;
 
 import com.org.tenpo.challenge.core.model.RequestLog;
-import com.org.tenpo.challenge.core.port.ExternalInformationRepository;
 import com.org.tenpo.challenge.core.port.RequestLogRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
