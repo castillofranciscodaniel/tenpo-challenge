@@ -8,6 +8,8 @@ import com.org.tenpo.challenge.infraestructure.delivery.dto.CalculateRequest;
 import io.github.bucket4j.Bandwidth;
 import io.github.bucket4j.Bucket;
 import io.github.bucket4j.Refill;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Mono;
 
@@ -36,15 +38,23 @@ public class CalculateController {
     }
 
     @PostMapping
-    public Mono<Map<String, Double>> calculate(@RequestBody CalculateRequest calculateRequest) {
-        return this.calculateCU.execute(calculateRequest.getNumberA(), calculateRequest.getNumberB()).map(result ->
-                Map.of("result", result)
-        );
+    public Mono<ResponseEntity<Map<String, Double>>> calculate(@RequestBody CalculateRequest calculateRequest) {
+        if (bucket.tryConsume(1)) {
+            return this.calculateCU.execute(calculateRequest.getNumberA(), calculateRequest.getNumberB()).map(result ->
+                    ResponseEntity.ok(Map.of("result", result))
+            );
+        }
+
+        return Mono.just(ResponseEntity.status(HttpStatus.TOO_MANY_REQUESTS).build());
     }
 
     @GetMapping("/history")
-    public Mono<SimplePage<RequestLog>> findPaginatedRequestLog(@RequestParam Integer page, @RequestParam Integer size) {
-        return this.findPaginatedRequestLogCU.execute(page, size);
+    public Mono<ResponseEntity<SimplePage<RequestLog>>> findPaginatedRequestLog(@RequestParam Integer page, @RequestParam Integer size) {
+        if (bucket.tryConsume(1)) {
+            return this.findPaginatedRequestLogCU.execute(page, size).map(ResponseEntity::ok);
+        }
+
+        return Mono.just(ResponseEntity.status(HttpStatus.TOO_MANY_REQUESTS).build());
     }
 
 }
