@@ -2,17 +2,13 @@ package com.org.tenpo.challenge.core.usecase;
 
 import com.org.tenpo.challenge.core.model.RequestLog;
 import com.org.tenpo.challenge.core.model.RequestLogState;
-import com.org.tenpo.challenge.core.port.RequestLogRepository;
 import reactor.core.publisher.Mono;
 
 public class CalculateCU {
 
-    private final RequestLogRepository requestLogRepository;
-
     private final CalculateService calculateService;
 
-    public CalculateCU(RequestLogRepository requestLogRepository, CalculateService calculateService) {
-        this.requestLogRepository = requestLogRepository;
+    public CalculateCU(CalculateService calculateService) {
         this.calculateService = calculateService;
     }
 

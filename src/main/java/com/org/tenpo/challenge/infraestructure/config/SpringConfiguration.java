@@ -41,8 +41,8 @@ public class SpringConfiguration {
     }
 
     @Bean
-    public CalculateCU newCalculateCU(RequestLogRepository requestLogRepository, CalculateService calculateService) {
-        return new CalculateCU(requestLogRepository, calculateService);
+    public CalculateCU newCalculateCU(CalculateService calculateService) {
+        return new CalculateCU(calculateService);
     }
 
 }
