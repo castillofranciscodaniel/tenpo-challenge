@@ -1,15 +1,12 @@
 package com.org.tenpo.challenge.infraestructure.repository.model;
 
 import com.org.tenpo.challenge.core.model.RequestLog;
-import com.org.tenpo.challenge.infraestructure.config.LocalDateTimeToDateConverter;
 import org.springframework.beans.BeanUtils;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Column;
 import org.springframework.data.relational.core.mapping.Table;
 
-import javax.persistence.Convert;
 import java.time.LocalDateTime;
-import java.util.Date;
 
 @Table("request_log")
 public class RequestLogEntity {
