@@ -1,6 +1,7 @@
 package com.org.tenpo.challenge.core.model;
 
 import java.util.Date;
+import java.util.Objects;
 import java.util.UUID;
 
 public class RequestLog {
@@ -13,7 +14,7 @@ public class RequestLog {
 
     private Double result;
 
-    private final Date createdAt = new Date();
+    private Date createdAt;
 
     public RequestLog() {
         this.id = UUID.randomUUID().toString();
@@ -24,6 +25,15 @@ public class RequestLog {
         this.requestNumberA = requestNumberA;
         this.requestNumberB = requestNumberB;
         this.result = result;
+        this.createdAt = new Date();
+    }
+
+    public RequestLog(String id, Double requestNumberA, Double requestNumberB, Double result, Date createdAt) {
+        this.id = id;
+        this.requestNumberA = requestNumberA;
+        this.requestNumberB = requestNumberB;
+        this.result = result;
+        this.createdAt = createdAt;
     }
 
     public String getId() {
@@ -60,5 +70,18 @@ public class RequestLog {
 
     public Date getCreatedAt() {
         return createdAt;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        RequestLog that = (RequestLog) o;
+        return Objects.equals(id, that.id) && Objects.equals(requestNumberA, that.requestNumberA) && Objects.equals(requestNumberB, that.requestNumberB) && Objects.equals(result, that.result) && Objects.equals(createdAt, that.createdAt);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, requestNumberA, requestNumberB, result, createdAt);
     }
 }

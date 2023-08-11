@@ -7,6 +7,8 @@ import org.springframework.data.relational.core.mapping.Column;
 import org.springframework.data.relational.core.mapping.Table;
 
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.Objects;
 
 @Table("request_log")
 public class RequestLogEntity {
@@ -30,6 +32,7 @@ public class RequestLogEntity {
 
     public RequestLogEntity(RequestLog requestLog) {
         BeanUtils.copyProperties(requestLog, this);
+        this.setCreatedAt(requestLog.getCreatedAt().toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime());
     }
 
     public RequestLogEntity(String id, Double requestNumberA, Double requestNumberB, Double result, LocalDateTime createdAt) {
@@ -78,5 +81,35 @@ public class RequestLogEntity {
         this.result = result;
     }
 
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
 
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        RequestLogEntity that = (RequestLogEntity) o;
+        return Objects.equals(id, that.id) && Objects.equals(requestNumberA, that.requestNumberA) && Objects.equals(requestNumberB, that.requestNumberB) && Objects.equals(result, that.result) && Objects.equals(createdAt, that.createdAt);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, requestNumberA, requestNumberB, result, createdAt);
+    }
+
+    @Override
+    public String toString() {
+        return "RequestLogEntity{" +
+                "id='" + id + '\'' +
+                ", requestNumberA=" + requestNumberA +
+                ", requestNumberB=" + requestNumberB +
+                ", result=" + result +
+                ", createdAt=" + createdAt +
+                '}';
+    }
 }
