@@ -4,7 +4,6 @@ import com.org.tenpo.challenge.core.model.RequestLog;
 import com.org.tenpo.challenge.core.model.RequestLogState;
 import com.org.tenpo.challenge.core.port.RequestLogRepository;
 import reactor.core.publisher.Mono;
-import reactor.core.scheduler.Schedulers;
 
 public class CalculateCU {
 
@@ -30,10 +29,12 @@ public class CalculateCU {
 
             RequestLog requestLog = new RequestLog(numberA, numberB, result, RequestLogState.SUCCESSFUL);
 
-            this.requestLogRepository.save(requestLog).subscribeOn(Schedulers.boundedElastic())
-                    .subscribe();
+            this.calculateService.saveAsyncRequestLog(requestLog);
 
             return result;
+        }).doOnError(error -> {
+            RequestLog requestLog = new RequestLog(numberA, numberB, RequestLogState.ERROR);
+            this.calculateService.saveAsyncRequestLog(requestLog);
         });
     }
 

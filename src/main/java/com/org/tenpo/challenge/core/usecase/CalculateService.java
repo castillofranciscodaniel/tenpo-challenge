@@ -1,9 +1,13 @@
 package com.org.tenpo.challenge.core.usecase;
 
 import com.org.tenpo.challenge.core.model.ExternalValue;
+import com.org.tenpo.challenge.core.model.RequestLog;
 import com.org.tenpo.challenge.core.port.ExternalInformationCacheRepository;
 import com.org.tenpo.challenge.core.port.ExternalInformationRepository;
+import com.org.tenpo.challenge.core.port.RequestLogRepository;
+import reactor.core.Disposable;
 import reactor.core.publisher.Mono;
+import reactor.core.scheduler.Schedulers;
 import reactor.util.retry.Retry;
 
 import java.time.Duration;
@@ -15,11 +19,15 @@ public class CalculateService {
 
     private final ExternalInformationCacheRepository externalInformationCacheRepository;
 
+    private final RequestLogRepository requestLogRepository;
+
     private static final int MAX_RETRIES = 3;
 
-    public CalculateService(ExternalInformationRepository externalInformationRepository, ExternalInformationCacheRepository externalInformationCacheRepository) {
+    public CalculateService(ExternalInformationRepository externalInformationRepository,
+                            ExternalInformationCacheRepository externalInformationCacheRepository, RequestLogRepository requestLogRepository) {
         this.externalInformationRepository = externalInformationRepository;
         this.externalInformationCacheRepository = externalInformationCacheRepository;
+        this.requestLogRepository = requestLogRepository;
     }
 
     public Mono<Double> findPercentage() {
@@ -27,17 +35,17 @@ public class CalculateService {
                 .switchIfEmpty(this.findExternalAndSaveInCache().map(ExternalValue::new))
                 .flatMap(externalValue -> {
 
-            Mono<Double> defaultReturn = Mono.just(externalValue.getPercentage());
+                    Mono<Double> defaultReturn = Mono.just(externalValue.getPercentage());
 
-            if (this.wasSavedMoreThanThirtyMinutosAgo(externalValue.getCreatedAt())) {
-                return this.findExternalAndSaveInCache().onErrorResume(error -> {
-                    System.out.println("Max retries reached or unrecoverable error: " + error.getMessage());
-                    return defaultReturn;  // Valor de fallback en caso de error
+                    if (this.wasSavedMoreThanThirtyMinutosAgo(externalValue.getCreatedAt())) {
+                        return this.findExternalAndSaveInCache().onErrorResume(error -> {
+                            System.out.println("Max retries reached or unrecoverable error: " + error.getMessage());
+                            return defaultReturn;  // Valor de fallback en caso de error
+                        });
+                    }
+
+                    return defaultReturn;
                 });
-            }
-
-            return defaultReturn;
-        });
     }
 
     private Mono<Double> findExternalAndSaveInCache() {
@@ -56,6 +64,11 @@ public class CalculateService {
         long millisecondsDifference = new Date().getTime() - dateSaved.getTime();
         long minutesDifference = millisecondsDifference / (60 * 1000);
         return minutesDifference > 30;
+    }
+
+    public Disposable saveAsyncRequestLog(RequestLog requestLog) {
+        return this.requestLogRepository.save(requestLog).subscribeOn(Schedulers.boundedElastic())
+                .subscribe();
     }
 
 }

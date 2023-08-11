@@ -22,6 +22,14 @@ public class RequestLog {
         this.id = UUID.randomUUID().toString();
     }
 
+    public RequestLog(Double requestNumberA, Double requestNumberB, RequestLogState state) {
+        this.id = UUID.randomUUID().toString();
+        this.requestNumberA = requestNumberA;
+        this.requestNumberB = requestNumberB;
+        this.createdAt = new Date();
+        this.state = state;
+    }
+
     public RequestLog(Double requestNumberA, Double requestNumberB, Double result, RequestLogState state) {
         this.id = UUID.randomUUID().toString();
         this.requestNumberA = requestNumberA;
