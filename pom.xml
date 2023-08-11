@@ -11,10 +11,11 @@
 	<groupId>com.example</groupId>
 	<artifactId>tenpo-challenge</artifactId>
 	<version>1.0.0</version>
-	<name>tempo-challenge</name>
-	<description>tempo-challenge</description>
+	<name>tenpo-challenge</name>
+	<description>tenpo-challenge</description>
 	<properties>
 		<java.version>17</java.version>
+		<start-class>com.org.tenpo.challenge.TenpoChallengeApplication</start-class>
 	</properties>
 	<dependencies>
 		<dependency>
