@@ -6,12 +6,18 @@ import com.org.tenpo.challenge.core.port.RequestLogRepository;
 import com.org.tenpo.challenge.core.usecase.CalculateCU;
 import com.org.tenpo.challenge.core.usecase.CalculateService;
 import com.org.tenpo.challenge.core.usecase.FindPaginatedRequestLogCU;
+import io.github.bucket4j.Bandwidth;
+import io.github.bucket4j.Bucket;
+import io.github.bucket4j.Refill;
+import io.github.bucket4j.local.LocalBucket;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.web.reactive.function.client.WebClient;
+
+import java.time.Duration;
 
 @Configuration
 @EnableAutoConfiguration
@@ -43,6 +49,15 @@ public class SpringConfiguration {
     @Bean
     public CalculateCU newCalculateCU(CalculateService calculateService) {
         return new CalculateCU(calculateService);
+    }
+
+    @Bean
+    public LocalBucket rateLimitConfig() {
+        Bandwidth limit = Bandwidth.classic(3, Refill.greedy(3, Duration.ofMinutes(1)));
+
+        return Bucket.builder()
+                .addLimit(limit)
+                .build();
     }
 
 }

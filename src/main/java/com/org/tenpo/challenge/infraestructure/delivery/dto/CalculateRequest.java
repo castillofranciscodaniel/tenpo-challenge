@@ -29,4 +29,12 @@ public class CalculateRequest {
     public void setNumberB(Double numberB) {
         this.numberB = numberB;
     }
+
+    @Override
+    public String toString() {
+        return "CalculateRequest{" +
+                "numberA=" + numberA +
+                ", numberB=" + numberB +
+                '}';
+    }
 }
