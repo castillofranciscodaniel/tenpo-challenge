@@ -1,4 +1,4 @@
-package com.org.tenpo.challenge.adapter.gateway;
+package com.org.tenpo.challenge.adapter.repository;
 
 import com.org.tenpo.challenge.core.model.ExternalValue;
 import com.org.tenpo.challenge.core.port.ExternalInformationCacheRepository;
