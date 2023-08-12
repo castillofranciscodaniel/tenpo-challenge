@@ -5,7 +5,6 @@ import com.org.tenpo.challenge.core.model.RequestLog;
 import com.org.tenpo.challenge.core.port.ExternalInformationCacheRepository;
 import com.org.tenpo.challenge.core.port.ExternalInformationRepository;
 import com.org.tenpo.challenge.core.port.RequestLogRepository;
-import reactor.core.Disposable;
 import reactor.core.publisher.Mono;
 import reactor.core.scheduler.Schedulers;
 import reactor.util.retry.Retry;
@@ -51,13 +50,8 @@ public class CalculateService {
     private Mono<Double> findExternalAndSaveInCache() {
         return this.externalInformationRepository.findPercentage()
                 .flatMap(percentage -> this.externalInformationCacheRepository.savePercentage(percentage)
-                        .map(x -> {
-                            // TODO: LOG AVISANDO, pero no hay porque no enviar la ultima data
-                            return percentage;
-                        })
-                )
+                        .map(x -> percentage))
                 .retryWhen(Retry.fixedDelay(MAX_RETRIES, Duration.ofSeconds(1)));  // Reintentar 3 veces con intervalo de 1 segundo
-
     }
 
     private boolean wasSavedMoreThanThirtyMinutosAgo(Date dateSaved) {
@@ -66,8 +60,8 @@ public class CalculateService {
         return minutesDifference > 30;
     }
 
-    public Disposable saveAsyncRequestLog(RequestLog requestLog) {
-        return this.requestLogRepository.save(requestLog).subscribeOn(Schedulers.boundedElastic())
+    public void saveAsyncRequestLog(RequestLog requestLog) {
+        this.requestLogRepository.save(requestLog).subscribeOn(Schedulers.boundedElastic())
                 .subscribe();
     }
 

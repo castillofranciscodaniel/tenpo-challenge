@@ -2,9 +2,13 @@ package com.org.tenpo.challenge.core.usecase;
 
 import com.org.tenpo.challenge.core.model.RequestLog;
 import com.org.tenpo.challenge.core.model.RequestLogState;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import reactor.core.publisher.Mono;
 
 public class CalculateCU {
+
+    private static final Logger logger = LoggerFactory.getLogger(CalculateCU.class);
 
     private final CalculateService calculateService;
 
@@ -13,6 +17,8 @@ public class CalculateCU {
     }
 
     public Mono<Double> execute(Double numberA, Double numberB) {
+
+        logger.info("execute init. numberA: " + numberA + ". numberB: " + numberB);
 
         double sum = numberA + numberB;
 
@@ -26,8 +32,12 @@ public class CalculateCU {
 
             this.calculateService.saveAsyncRequestLog(requestLog);
 
+            logger.info("execute end. numberA: " + numberA + ". numberB: " + numberB + ". result: + " + result);
+
             return result;
         }).doOnError(error -> {
+            logger.error("execute exception", error);
+
             RequestLog requestLog = new RequestLog(numberA, numberB, RequestLogState.ERROR);
             this.calculateService.saveAsyncRequestLog(requestLog);
         });
