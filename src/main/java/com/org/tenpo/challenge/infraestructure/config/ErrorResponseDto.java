@@ -1,6 +1,5 @@
 package com.org.tenpo.challenge.infraestructure.config;
 
-import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 
 public class ErrorResponseDto {

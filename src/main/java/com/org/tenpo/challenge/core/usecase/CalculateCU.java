@@ -19,7 +19,7 @@ public class CalculateCU {
 
     public Mono<Double> execute(Double numberA, Double numberB) {
 
-        logger.info("execute init. numberA: " + numberA + ". numberB: " + numberB);
+        logger.info("execute init. numberA: {}. numberB: {}", numberA, numberB);
 
         double sum = numberA + numberB;
 
@@ -35,7 +35,7 @@ public class CalculateCU {
 
                     this.calculateService.saveAsyncRequestLog(requestLog);
 
-                    logger.info("execute end. numberA: " + numberA + ". numberB: " + numberB + ". result: + " + result);
+                    logger.info("execute end. numberA: {}. numberB: {}. result: {}", numberA, numberB, result);
 
                     return result;
                 }).doOnError(error -> {
