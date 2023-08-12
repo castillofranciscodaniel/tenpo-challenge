@@ -1,9 +1,12 @@
 package com.org.tenpo.challenge.adapter.repository;
 
+import com.org.tenpo.challenge.adapter.gateway.ExternalInformationRepositoryImpl;
 import com.org.tenpo.challenge.core.model.RequestLog;
 import com.org.tenpo.challenge.core.model.SimplePage;
 import com.org.tenpo.challenge.core.port.RequestLogRepository;
 import com.org.tenpo.challenge.infraestructure.repository.model.RequestLogEntity;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.r2dbc.core.R2dbcEntityTemplate;
 import org.springframework.data.relational.core.query.Criteria;
@@ -17,6 +20,8 @@ import java.util.stream.Collectors;
 
 @Repository
 public class RequestLogRepositoryImpl implements RequestLogRepository {
+
+    private static final Logger logger = LoggerFactory.getLogger(RequestLogRepositoryImpl.class);
 
     private final R2dbcEntityTemplate template;
 
@@ -32,6 +37,8 @@ public class RequestLogRepositoryImpl implements RequestLogRepository {
     @Override
     public Mono<SimplePage<RequestLog>> find(Integer page, Integer size) {
 
+        logger.info("find init. page: {}, size: {}", page, size);
+
         Pageable pageable = Pageable.ofSize(size).withPage(page);
 
         Query query = Query.query(Criteria.empty()).with(pageable);
@@ -44,6 +51,8 @@ public class RequestLogRepositoryImpl implements RequestLogRepository {
     }
 
     private SimplePage<RequestLog> buildSimplePage(Tuple2<List<RequestLogEntity>, Long> tuple, Integer page, Integer size) {
+        logger.info("buildSimplePage init. page: {}, size: {}", page, size);
+
         var content = tuple.getT1();
         var count = tuple.getT2();
 

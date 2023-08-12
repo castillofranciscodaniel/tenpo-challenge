@@ -2,6 +2,8 @@ package com.org.tenpo.challenge.adapter.gateway;
 
 import com.org.tenpo.challenge.core.model.ExternalValue;
 import com.org.tenpo.challenge.core.port.ExternalInformationCacheRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.redis.connection.ReactiveRedisConnectionFactory;
 import org.springframework.data.redis.core.ReactiveRedisOperations;
 import org.springframework.data.redis.core.ReactiveRedisTemplate;
@@ -14,8 +16,8 @@ import reactor.core.publisher.Mono;
 @Component
 public class ExternalInformationCacheRepositoryImpl implements ExternalInformationCacheRepository {
 
+    private static final Logger logger = LoggerFactory.getLogger(ExternalInformationCacheRepositoryImpl.class);
     private final ReactiveRedisOperations<String, ExternalValue> redisOperations;
-
 
     private static final String REDIS_VALUE = "external_value";
 
@@ -34,12 +36,18 @@ public class ExternalInformationCacheRepositoryImpl implements ExternalInformati
 
     @Override
     public Mono<ExternalValue> findPercentage() {
-        return redisOperations.opsForValue().get(REDIS_VALUE);
+        logger.info("findPercentage init.");
+
+        return redisOperations.opsForValue().get(REDIS_VALUE).
+                doOnEach(x -> logger.info("findPercentage end. externalValue: {}", x));
     }
 
     @Override
     public Mono<Boolean> savePercentage(ExternalValue externalValue) {
-        return redisOperations.opsForValue().set(REDIS_VALUE, externalValue);
+        logger.info("savePercentage init.");
+
+        return redisOperations.opsForValue().set(REDIS_VALUE, externalValue)
+                .doOnEach(x -> logger.info("savePercentage end. isSaved: {}", x));
     }
 }
 

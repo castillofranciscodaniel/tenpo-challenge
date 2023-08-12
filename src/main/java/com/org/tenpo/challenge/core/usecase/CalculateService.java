@@ -5,6 +5,8 @@ import com.org.tenpo.challenge.core.model.RequestLog;
 import com.org.tenpo.challenge.core.port.ExternalInformationCacheRepository;
 import com.org.tenpo.challenge.core.port.ExternalInformationRepository;
 import com.org.tenpo.challenge.core.port.RequestLogRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import reactor.core.publisher.Mono;
 import reactor.core.scheduler.Schedulers;
 import reactor.util.retry.Retry;
@@ -13,6 +15,8 @@ import java.time.Duration;
 import java.util.Date;
 
 public class CalculateService {
+
+    private static final Logger logger = LoggerFactory.getLogger(CalculateService.class);
 
     private final ExternalInformationRepository externalInformationRepository;
 
@@ -30,6 +34,8 @@ public class CalculateService {
     }
 
     public Mono<ExternalValue> findPercentage() {
+        logger.info("findPercentage init.");
+
         return this.externalInformationCacheRepository.findPercentage()
                 .switchIfEmpty(this.findExternalAndSaveInCache())
                 .flatMap(externalValue -> {
@@ -38,7 +44,7 @@ public class CalculateService {
 
                     if (this.wasSavedMoreThanThirtyMinutosAgo(externalValue.getCreatedAt())) {
                         return this.findExternalAndSaveInCache().onErrorResume(error -> {
-                            System.out.println("Max retries reached or unrecoverable error: " + error.getMessage());
+                            logger.warn("Max retries reached or unrecoverable error: " + error.getMessage());
                             return defaultReturn;  // Valor de fallback en caso de error
                         });
                     }
@@ -48,6 +54,8 @@ public class CalculateService {
     }
 
     private Mono<ExternalValue> findExternalAndSaveInCache() {
+        logger.info("findExternalAndSaveInCache init.");
+
         return this.externalInformationRepository.findPercentage()
                 .flatMap(percentage -> this.externalInformationCacheRepository.savePercentage(percentage)
                         .map(x -> percentage))
@@ -55,12 +63,16 @@ public class CalculateService {
     }
 
     private boolean wasSavedMoreThanThirtyMinutosAgo(Date dateSaved) {
+        logger.info("wasSavedMoreThanThirtyMinutosAgo init. dateSaved: {}", dateSaved);
+
         long millisecondsDifference = new Date().getTime() - dateSaved.getTime();
         long minutesDifference = millisecondsDifference / (60 * 1000);
         return minutesDifference > 30;
     }
 
     public void saveAsyncRequestLog(RequestLog requestLog) {
+        logger.info("saveAsyncRequestLog init. requestLog: {}", requestLog);
+
         this.requestLogRepository.save(requestLog).subscribeOn(Schedulers.boundedElastic())
                 .subscribe();
     }
