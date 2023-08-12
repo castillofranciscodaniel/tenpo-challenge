@@ -1,4 +1,4 @@
-package com.org.tenpo.challenge.infraestructure.repository.model;
+package com.org.tenpo.challenge.adapter.repository.model;
 
 import com.org.tenpo.challenge.core.model.RequestLog;
 import com.org.tenpo.challenge.core.model.RequestLogState;

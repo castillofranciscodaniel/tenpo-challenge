@@ -10,6 +10,8 @@ import io.github.bucket4j.Bandwidth;
 import io.github.bucket4j.Bucket;
 import io.github.bucket4j.Refill;
 import io.github.bucket4j.local.LocalBucket;
+import io.swagger.v3.oas.models.Components;
+import io.swagger.v3.oas.models.OpenAPI;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -60,4 +62,9 @@ public class SpringConfiguration {
                 .build();
     }
 
+    @Bean
+    public OpenAPI customOpenAPI() {
+        return new OpenAPI()
+                .components(new Components());
+    }
 }

@@ -1,10 +1,9 @@
 package com.org.tenpo.challenge.adapter.repository;
 
-import com.org.tenpo.challenge.adapter.gateway.ExternalInformationRepositoryImpl;
 import com.org.tenpo.challenge.core.model.RequestLog;
 import com.org.tenpo.challenge.core.model.SimplePage;
 import com.org.tenpo.challenge.core.port.RequestLogRepository;
-import com.org.tenpo.challenge.infraestructure.repository.model.RequestLogEntity;
+import com.org.tenpo.challenge.adapter.repository.model.RequestLogEntity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Pageable;

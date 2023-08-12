@@ -1,5 +1,6 @@
 package com.org.tenpo.challenge.infraestructure.repository.model;
 
+import com.org.tenpo.challenge.adapter.repository.model.RequestLogEntity;
 import com.org.tenpo.challenge.core.model.RequestLog;
 import com.org.tenpo.challenge.core.model.RequestLogState;
 import org.junit.Assert;
