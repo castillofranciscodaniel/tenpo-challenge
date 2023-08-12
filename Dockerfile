@@ -7,7 +7,6 @@ WORKDIR /app
 
 # Copiar el archivo pom.xml y descargar las dependencias de Maven
 COPY pom.xml .
-RUN mvn clean install -DskipTests
 
 # Copiar el resto del proyecto
 COPY . .
