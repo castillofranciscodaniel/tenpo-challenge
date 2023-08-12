@@ -36,34 +36,36 @@ public class CalculateServiceTest {
     @Test
     public void find_percentage_from_with_empty_cache_Test() {
 
+        var externalValue = new ExternalValue(10.0);
 
         when(externalInformationCacheRepository.findPercentage()).thenReturn(Mono.empty());
-        when(externalInformationCacheRepository.savePercentage(10.0)).thenReturn(Mono.just(true));
-        when(externalInformationRepository.findPercentage()).thenReturn(Mono.just(10.0));
+        when(externalInformationCacheRepository.savePercentage(externalValue)).thenReturn(Mono.just(true));
+        when(externalInformationRepository.findPercentage()).thenReturn(Mono.just(externalValue));
 
         StepVerifier.create(calculateService.findPercentage())
-                .expectNext(10.0)
+                .expectNext(externalValue)
                 .verifyComplete();
 
         verify(externalInformationCacheRepository, times(1)).findPercentage();
-        verify(externalInformationCacheRepository, times(1)).savePercentage(10.0);
+        verify(externalInformationCacheRepository, times(1)).savePercentage(externalValue);
         verify(externalInformationRepository, times(1)).findPercentage();
     }
 
     @Test
     public void find_percentage_from_with_empty_cache_error_saving_Test() {
-
+        // the error dont have to block the function
+        var externalValue = new ExternalValue(10.0);
 
         when(externalInformationCacheRepository.findPercentage()).thenReturn(Mono.empty());
-        when(externalInformationCacheRepository.savePercentage(10.0)).thenReturn(Mono.just(false));
-        when(externalInformationRepository.findPercentage()).thenReturn(Mono.just(10.0));
+        when(externalInformationCacheRepository.savePercentage(externalValue)).thenReturn(Mono.just(false));
+        when(externalInformationRepository.findPercentage()).thenReturn(Mono.just(externalValue));
 
         StepVerifier.create(calculateService.findPercentage())
-                .expectNext(10.0)
+                .expectNext(externalValue)
                 .verifyComplete();
 
         verify(externalInformationCacheRepository, times(1)).findPercentage();
-        verify(externalInformationCacheRepository, times(1)).savePercentage(10.0);
+        verify(externalInformationCacheRepository, times(1)).savePercentage(externalValue);
         verify(externalInformationRepository, times(1)).findPercentage();
     }
 
@@ -79,7 +81,7 @@ public class CalculateServiceTest {
         when(externalInformationRepository.findPercentage()).thenReturn(Mono.empty());
 
         StepVerifier.create(calculateService.findPercentage())
-                .expectNext(8.0)
+                .expectNext(externalValue)
                 .verifyComplete();
 
         verify(externalInformationCacheRepository, times(1)).findPercentage();
@@ -91,15 +93,17 @@ public class CalculateServiceTest {
         var calendar = Calendar.getInstance();
         calendar.add(Calendar.MINUTE, -31);
 
-        var externalValue = new ExternalValue(8.0, calendar.getTime());
+        var externalValueAfter30Minutes = new ExternalValue(8.0, calendar.getTime());
 
-        when(externalInformationCacheRepository.findPercentage()).thenReturn(Mono.just(externalValue));
-        when(externalInformationRepository.findPercentage()).thenReturn(Mono.just(20.0));
-        when(externalInformationCacheRepository.savePercentage(20.0)).thenReturn(Mono.just(true));
+        var newExternalValue = new ExternalValue(20.0);
+
+        when(externalInformationCacheRepository.findPercentage()).thenReturn(Mono.just(externalValueAfter30Minutes));
+        when(externalInformationRepository.findPercentage()).thenReturn(Mono.just(newExternalValue));
+        when(externalInformationCacheRepository.savePercentage(newExternalValue)).thenReturn(Mono.just(true));
 
 
         StepVerifier.create(calculateService.findPercentage())
-                .expectNext(20.0)
+                .expectNext(newExternalValue)
                 .verifyComplete();
 
         verify(externalInformationCacheRepository, times(1)).findPercentage();
@@ -114,15 +118,17 @@ public class CalculateServiceTest {
         var calendar = Calendar.getInstance();
         calendar.add(Calendar.MINUTE, -31);
 
-        var externalValue = new ExternalValue(8.0, calendar.getTime());
+        var externalValueAfter30Minutes = new ExternalValue(8.0, calendar.getTime());
 
-        when(externalInformationCacheRepository.findPercentage()).thenReturn(Mono.just(externalValue));
-        when(externalInformationRepository.findPercentage()).thenReturn(Mono.just(20.0));
-        when(externalInformationCacheRepository.savePercentage(20.0)).thenReturn(Mono.just(false));
+        var newExternalValue = new ExternalValue(20.0);
+
+        when(externalInformationCacheRepository.findPercentage()).thenReturn(Mono.just(externalValueAfter30Minutes));
+        when(externalInformationRepository.findPercentage()).thenReturn(Mono.just(newExternalValue));
+        when(externalInformationCacheRepository.savePercentage(newExternalValue)).thenReturn(Mono.just(false));
 
 
         StepVerifier.create(calculateService.findPercentage())
-                .expectNext(20.0)
+                .expectNext(newExternalValue)
                 .verifyComplete();
 
         verify(externalInformationCacheRepository, times(1)).findPercentage();

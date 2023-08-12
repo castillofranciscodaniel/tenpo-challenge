@@ -37,8 +37,8 @@ public class ExternalInformationCacheRepositoryImpl implements ExternalInformati
     }
 
     @Override
-    public Mono<Boolean> savePercentage(Double percentage) {
-        return redisOperations.opsForValue().set(REDIS_VALUE, new ExternalValue(percentage));
+    public Mono<Boolean> savePercentage(ExternalValue externalValue) {
+        return redisOperations.opsForValue().set(REDIS_VALUE, externalValue);
     }
 }
 

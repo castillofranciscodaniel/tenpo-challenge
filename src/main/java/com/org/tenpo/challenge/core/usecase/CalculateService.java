@@ -29,12 +29,12 @@ public class CalculateService {
         this.requestLogRepository = requestLogRepository;
     }
 
-    public Mono<Double> findPercentage() {
+    public Mono<ExternalValue> findPercentage() {
         return this.externalInformationCacheRepository.findPercentage()
-                .switchIfEmpty(this.findExternalAndSaveInCache().map(ExternalValue::new))
+                .switchIfEmpty(this.findExternalAndSaveInCache())
                 .flatMap(externalValue -> {
 
-                    Mono<Double> defaultReturn = Mono.just(externalValue.getPercentage());
+                    Mono<ExternalValue> defaultReturn = Mono.just(externalValue);
 
                     if (this.wasSavedMoreThanThirtyMinutosAgo(externalValue.getCreatedAt())) {
                         return this.findExternalAndSaveInCache().onErrorResume(error -> {
@@ -47,7 +47,7 @@ public class CalculateService {
                 });
     }
 
-    private Mono<Double> findExternalAndSaveInCache() {
+    private Mono<ExternalValue> findExternalAndSaveInCache() {
         return this.externalInformationRepository.findPercentage()
                 .flatMap(percentage -> this.externalInformationCacheRepository.savePercentage(percentage)
                         .map(x -> percentage))

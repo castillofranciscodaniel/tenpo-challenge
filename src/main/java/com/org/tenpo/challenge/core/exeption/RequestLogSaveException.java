@@ -6,6 +6,6 @@ public class RequestLogSaveException extends CoreException {
     }
 
     public RequestLogSaveException(String message, Integer code) {
-        super(message, code);
+        super(code, message);
     }
 }

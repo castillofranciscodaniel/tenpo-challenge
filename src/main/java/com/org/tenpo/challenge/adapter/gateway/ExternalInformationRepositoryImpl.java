@@ -1,5 +1,6 @@
 package com.org.tenpo.challenge.adapter.gateway;
 
+import com.org.tenpo.challenge.core.model.ExternalValue;
 import com.org.tenpo.challenge.core.port.ExternalInformationRepository;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -15,12 +16,13 @@ public class ExternalInformationRepositoryImpl implements ExternalInformationRep
     }
 
     @Override
-    public Mono<Double> findPercentage() {
+    public Mono<ExternalValue> findPercentage() {
         return webClient.get()
                 .uri("http://localhost:8080/percentage")
                 .retrieve()
                 .onStatus(httpStatus -> !httpStatus.is2xxSuccessful(),
                         response -> Mono.error(new RuntimeException("Error when calling")))
-                .bodyToMono(Double.class);
+                .bodyToMono(Double.class)
+                .map(ExternalValue::new);
     }
 }

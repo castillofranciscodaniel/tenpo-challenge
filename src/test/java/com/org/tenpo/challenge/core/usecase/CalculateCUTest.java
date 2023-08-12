@@ -1,5 +1,6 @@
 package com.org.tenpo.challenge.core.usecase;
 
+import com.org.tenpo.challenge.core.model.ExternalValue;
 import com.org.tenpo.challenge.core.model.RequestLog;
 import com.org.tenpo.challenge.core.model.RequestLogState;
 import com.org.tenpo.challenge.core.port.RequestLogRepository;
@@ -33,12 +34,13 @@ public class CalculateCUTest {
         var numberA = 5.0;
         var numberB = 10.0;
 
-        var percentage = 10.0;
         var result = 16.5;
+
+        var externalValue = new ExternalValue(10.0);
 
         var requestLog = new RequestLog(numberA, numberB, result, RequestLogState.SUCCESSFUL);
 
-        when(calculateService.findPercentage()).thenReturn(Mono.just(percentage));
+        when(calculateService.findPercentage()).thenReturn(Mono.just(externalValue));
         when(requestLogRepository.save(any())).thenReturn(Mono.just(requestLog));
 
         StepVerifier.create(calculateCU.execute(numberA, numberB))

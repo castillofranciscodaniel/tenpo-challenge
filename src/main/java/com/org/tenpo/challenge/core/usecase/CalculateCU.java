@@ -22,25 +22,27 @@ public class CalculateCU {
 
         double sum = numberA + numberB;
 
-        return this.calculateService.findPercentage().map(percentage -> {
-            double result = sum + (sum * percentage / 100);
+        return this.calculateService.findPercentage()
+                .switchIfEmpty(Mono.error(new RuntimeException("")))
+                .map(externalValue -> {
+                    double result = sum + (sum * externalValue.getPercentage() / 100);
 
-            // utilizamos subscribeOn(Schedulers.boundedElastic()) para especificar que queremos que esta
-            // tarea se ejecute en un grupo de subprocesos elástico (con capacidad limitada) en segundo plano.
+                    // utilizamos subscribeOn(Schedulers.boundedElastic()) para especificar que queremos que esta
+                    // tarea se ejecute en un grupo de subprocesos elástico (con capacidad limitada) en segundo plano.
 
-            RequestLog requestLog = new RequestLog(numberA, numberB, result, RequestLogState.SUCCESSFUL);
+                    RequestLog requestLog = new RequestLog(numberA, numberB, result, RequestLogState.SUCCESSFUL);
 
-            this.calculateService.saveAsyncRequestLog(requestLog);
+                    this.calculateService.saveAsyncRequestLog(requestLog);
 
-            logger.info("execute end. numberA: " + numberA + ". numberB: " + numberB + ". result: + " + result);
+                    logger.info("execute end. numberA: " + numberA + ". numberB: " + numberB + ". result: + " + result);
 
-            return result;
-        }).doOnError(error -> {
-            logger.error("execute exception", error);
+                    return result;
+                }).doOnError(error -> {
+                    logger.error("execute exception", error);
 
-            RequestLog requestLog = new RequestLog(numberA, numberB, RequestLogState.ERROR);
-            this.calculateService.saveAsyncRequestLog(requestLog);
-        });
+                    RequestLog requestLog = new RequestLog(numberA, numberB, RequestLogState.ERROR);
+                    this.calculateService.saveAsyncRequestLog(requestLog);
+                });
     }
 
 }

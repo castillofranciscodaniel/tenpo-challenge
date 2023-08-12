@@ -7,6 +7,6 @@ public interface ExternalInformationCacheRepository {
 
     Mono<ExternalValue> findPercentage();
 
-    Mono<Boolean> savePercentage(Double percentage);
+    Mono<Boolean> savePercentage(ExternalValue externalValue);
 
 }
