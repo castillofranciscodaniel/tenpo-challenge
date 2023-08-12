@@ -56,7 +56,7 @@ public class CalculateServiceTest {
 
     @Test
     public void find_percentage_from_with_empty_cache_error_saving_Test() {
-        // the error dont have to block the function
+        // the error doesn't have to block the function
         var externalValue = new ExternalValue(10.0);
 
         when(externalInformationCacheRepository.findPercentage()).thenReturn(Mono.empty());
@@ -139,8 +139,6 @@ public class CalculateServiceTest {
         verify(externalInformationRepository, times(2)).findPercentage();
 
     }
-
-    // Todo: agregar test para chequear el retry de la api externa
 
     @Test
     public void save_async_request_log_error_do_not_cancel_operation() {
