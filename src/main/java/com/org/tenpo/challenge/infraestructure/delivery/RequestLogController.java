@@ -44,8 +44,3 @@ public class RequestLogController {
     }
 
 }
-
-// TODO: hacer test de ports
-// TODO: dockerhub público
-// TODO: Postman Collection o Swagger
-// TODO: Readme

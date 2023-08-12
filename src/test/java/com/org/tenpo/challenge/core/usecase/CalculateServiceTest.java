@@ -1,11 +1,11 @@
 package com.org.tenpo.challenge.core.usecase;
 
 import com.org.tenpo.challenge.core.model.ExternalValue;
-import com.org.tenpo.challenge.core.model.RequestLog;
 import com.org.tenpo.challenge.core.port.ExternalInformationCacheRepository;
 import com.org.tenpo.challenge.core.port.ExternalInformationRepository;
 import com.org.tenpo.challenge.core.port.RequestLogRepository;
 import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -28,6 +28,9 @@ public class CalculateServiceTest {
 
     @MockBean
     private ExternalInformationCacheRepository externalInformationCacheRepository;
+
+    @MockBean
+    private RequestLogRepository requestLogRepository;
 
     @Autowired
     private CalculateService calculateService;
@@ -139,5 +142,10 @@ public class CalculateServiceTest {
 
     // Todo: agregar test para chequear el retry de la api externa
 
+    @Test
+    public void save_async_request_log_error_do_not_cancel_operation() {
+        when(requestLogRepository.save(any())).thenReturn(Mono.error(new RuntimeException("")));
+        Assertions.assertDoesNotThrow(() -> calculateService.saveAsyncRequestLog(any()));
+    }
 
 }

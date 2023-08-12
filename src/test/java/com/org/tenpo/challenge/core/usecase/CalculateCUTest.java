@@ -43,5 +43,4 @@ public class CalculateCUTest {
         verify(calculateService, times(1)).saveAsyncRequestLog(any());
     }
 
-    // TODO: hacer test para chequear que si el save falla, no impacte en el CU
 }
