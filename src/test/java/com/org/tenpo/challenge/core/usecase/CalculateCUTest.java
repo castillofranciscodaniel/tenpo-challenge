@@ -21,9 +21,6 @@ import static org.mockito.Mockito.*;
 public class CalculateCUTest {
 
     @MockBean
-    private RequestLogRepository requestLogRepository;
-
-    @MockBean
     private CalculateService calculateService;
 
     @Autowired
@@ -38,17 +35,15 @@ public class CalculateCUTest {
 
         var externalValue = new ExternalValue(10.0);
 
-        var requestLog = new RequestLog(numberA, numberB, result, RequestLogState.SUCCESSFUL);
 
         when(calculateService.findPercentage()).thenReturn(Mono.just(externalValue));
-        when(requestLogRepository.save(any())).thenReturn(Mono.just(requestLog));
 
         StepVerifier.create(calculateCU.execute(numberA, numberB))
                 .expectNext(16.5)
                 .verifyComplete();
 
         verify(calculateService, times(1)).findPercentage();
-        verify(requestLogRepository, times(1)).save(any());
+        verify(calculateService, times(1)).saveAsyncRequestLog(any());
     }
 
     // TODO: hacer test para chequear que si el save falla, no impacte en el CU

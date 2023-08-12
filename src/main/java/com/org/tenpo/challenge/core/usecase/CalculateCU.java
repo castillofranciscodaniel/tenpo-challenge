@@ -23,7 +23,7 @@ public class CalculateCU {
         double sum = numberA + numberB;
 
         return this.calculateService.findPercentage()
-                .switchIfEmpty(Mono.error(new RuntimeException("")))
+                //  .switchIfEmpty(Mono.error(new RuntimeException("")))
                 .map(externalValue -> {
                     double result = sum + (sum * externalValue.getPercentage() / 100);
 
