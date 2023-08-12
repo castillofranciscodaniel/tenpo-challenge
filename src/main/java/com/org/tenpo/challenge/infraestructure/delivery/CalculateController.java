@@ -15,7 +15,7 @@ import reactor.core.publisher.Mono;
 
 import java.util.Map;
 
-@RestController()
+@RestController
 @RequestMapping("/calculate")
 public class CalculateController {
 
@@ -35,7 +35,6 @@ public class CalculateController {
 
         logger.info("calculate init. calculateRequest: {}", calculateRequest);
 
-        logger.info("");
         if (!bucket.tryConsume(1)) {
             logger.error("calculate end. To many request. calculateRequest: {}", calculateRequest);
             return Mono.error(new RateLimitException());
@@ -50,5 +49,4 @@ public class CalculateController {
 
 // TODO: hacer test de ports
 // TODO: dockerhub público
-// TODO: Postman Collection o Swagger
 // TODO: Readme

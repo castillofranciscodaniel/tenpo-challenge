@@ -18,6 +18,9 @@ public class FindPaginatedRequestLogCU {
     }
 
     public Mono<SimplePage<RequestLog>> execute(Integer page, Integer size) {
+        if (page == null) page = 0;
+        if (size == null) page = 10;
+
         logger.info("execute init. page: {}, size: {}", page, size);
         return this.requestLogRepository.find(page, size);
     }
