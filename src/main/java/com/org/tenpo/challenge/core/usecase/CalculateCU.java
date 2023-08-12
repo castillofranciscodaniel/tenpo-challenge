@@ -1,5 +1,6 @@
 package com.org.tenpo.challenge.core.usecase;
 
+import com.org.tenpo.challenge.core.exeption.FindingExternalValueException;
 import com.org.tenpo.challenge.core.model.RequestLog;
 import com.org.tenpo.challenge.core.model.RequestLogState;
 import org.slf4j.Logger;
@@ -23,7 +24,7 @@ public class CalculateCU {
         double sum = numberA + numberB;
 
         return this.calculateService.findPercentage()
-                //  .switchIfEmpty(Mono.error(new RuntimeException("")))
+                .switchIfEmpty(Mono.error(new FindingExternalValueException("error getting external value")))
                 .map(externalValue -> {
                     double result = sum + (sum * externalValue.getPercentage() / 100);
 

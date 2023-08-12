@@ -1,9 +1,6 @@
 package com.org.tenpo.challenge.core.usecase;
 
 import com.org.tenpo.challenge.core.model.ExternalValue;
-import com.org.tenpo.challenge.core.model.RequestLog;
-import com.org.tenpo.challenge.core.model.RequestLogState;
-import com.org.tenpo.challenge.core.port.RequestLogRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,7 +36,7 @@ public class CalculateCUTest {
         when(calculateService.findPercentage()).thenReturn(Mono.just(externalValue));
 
         StepVerifier.create(calculateCU.execute(numberA, numberB))
-                .expectNext(16.5)
+                .expectNext(result)
                 .verifyComplete();
 
         verify(calculateService, times(1)).findPercentage();

@@ -1,26 +1,30 @@
 package com.org.tenpo.challenge.core.exeption;
 
+import org.springframework.http.HttpStatusCode;
+
 public class CoreException extends RuntimeException {
 
-    private Integer code;
+    private HttpStatusCode code;
 
     private String message;
 
     public CoreException() {
         super();
+        super.setStackTrace(new StackTraceElement[0]);
     }
 
-    public CoreException(Integer code, String message) {
+    public CoreException(HttpStatusCode code, String message) {
         super(message);
         this.code = code;
         this.message = message;
+        super.setStackTrace(new StackTraceElement[0]);
     }
 
-    public Integer getCode() {
+    public HttpStatusCode getCode() {
         return code;
     }
 
-    public void setCode(Integer code) {
+    public void setCode(HttpStatusCode code) {
         this.code = code;
     }
 

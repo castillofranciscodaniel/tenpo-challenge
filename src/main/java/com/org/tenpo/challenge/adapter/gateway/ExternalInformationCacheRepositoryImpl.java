@@ -20,6 +20,7 @@ public class ExternalInformationCacheRepositoryImpl implements ExternalInformati
     private static final String REDIS_VALUE = "external_value";
 
     public ExternalInformationCacheRepositoryImpl(ReactiveRedisConnectionFactory factory) {
+        factory.getReactiveConnection().serverCommands().flushAll().block();
 
         Jackson2JsonRedisSerializer<ExternalValue> serializer = new Jackson2JsonRedisSerializer<>(ExternalValue.class);
 

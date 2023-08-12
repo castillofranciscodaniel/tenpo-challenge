@@ -1,5 +1,6 @@
 package com.org.tenpo.challenge.adapter.gateway;
 
+import com.org.tenpo.challenge.core.exeption.FindingExternalValueException;
 import com.org.tenpo.challenge.core.model.ExternalValue;
 import com.org.tenpo.challenge.core.port.ExternalInformationRepository;
 import org.springframework.stereotype.Component;
@@ -21,7 +22,10 @@ public class ExternalInformationRepositoryImpl implements ExternalInformationRep
                 .uri("http://localhost:8080/percentage")
                 .retrieve()
                 .onStatus(httpStatus -> !httpStatus.is2xxSuccessful(),
-                        response -> Mono.error(new RuntimeException("Error when calling")))
+                        response -> Mono.error(
+                                new FindingExternalValueException(response.statusCode(), "error getting external percentage")
+                        )
+                )
                 .bodyToMono(Double.class)
                 .map(ExternalValue::new);
     }
