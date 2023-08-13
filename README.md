@@ -37,6 +37,9 @@ Además, se utilizó un driver reactivo, spring-boot-starter-data-redis-reactive
 redis para no generar llamadas
 bloqueantes.
 
+# Rate Limit
+Para suplir con la restriction de 3 request/minuto, use la librería bucket4j-core, que de manera free, te deja
+limitar tu api hasta 20 request/minuto
 
 ## Hexagonal architecture
 

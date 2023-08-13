@@ -48,4 +48,3 @@ public class CalculateController {
 }
 
 // TODO: hacer test de ports
-// TODO: dockerhub público
