@@ -1,5 +1,8 @@
 # tenpo-challenge
 
+Mi intención no era hacer sobre ingeniera del proyecto, si no, intentar plasmar y demostrar mi capacidad con este
+challenge.
+
 ## Get started
 
 - Install docker with docker-compose
@@ -79,7 +82,5 @@ docker pull castillofranciscodaniel/tenpo-challenge_app
 ```
 
 # Fin!
-Mi intención no era hacer sobre ingeniera del proyecto, si no, intentar plasmar y demostrar mi capacidad con este
-challenge.
 
 ¡Saludos!
