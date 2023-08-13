@@ -35,7 +35,8 @@ public class CalculateCU {
 
                     this.calculateService.saveAsyncRequestLog(requestLog);
 
-                    logger.info("execute end. numberA: {}. numberB: {}. result: {}", numberA, numberB, result);
+                    logger.info("execute end. numberA: {}. numberB: {}. percentage: {}, result: {}", numberA, numberB,
+                            externalValue.getPercentage(), result);
 
                     return result;
                 }).doOnError(error -> {

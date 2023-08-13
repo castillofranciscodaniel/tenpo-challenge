@@ -29,4 +29,11 @@ public class ExternalValue {
         return createdAt;
     }
 
+    @Override
+    public String toString() {
+        return "ExternalValue{" +
+                "percentage=" + percentage +
+                ", createdAt=" + createdAt +
+                '}';
+    }
 }
