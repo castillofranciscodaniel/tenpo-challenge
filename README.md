@@ -6,8 +6,8 @@
 
 ## Features
 
-- calculate value
-- history request paginate find 
+- Calculate value
+- Paginated search of the request history.
 
 ## Run application
 
@@ -15,7 +15,7 @@
 docker-compose up --build 
 ```
 
-## Try challenge with Swagger OpenAPI
+## Try the challenge with Swagger OpenAPI
 
 http://localhost:8080/webjars/swagger-ui/index.html#/
 
@@ -36,7 +36,7 @@ redis para no generar llamadas
 bloqueantes.
 
 
-## Architecture Hexagonal
+## Hexagonal architecture
 
 La idea de como está maquetado el proyecto, es que la capa core solo dependa de sí misma de tal modo que los casos de
 uso se valen de los puertos sin conocer las implementaciones de las mismas
@@ -63,7 +63,7 @@ Esta la he utilizado para centralizar las configuraciones y los accesos externos
     - config: contiene las configuraciones usadas en spring.
     - delivery: contiene los controladores api rest.
 
-# Test
+# Tests
 Los test fueron realizados haciendo hincapie en la parte core, ya que contiene nustro negocio. 
 
 Mi intención no era hacer sobre ingeniera del proyecto, si no, intentar plasmar y demostrar mi capacidad con este
