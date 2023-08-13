@@ -11,6 +11,8 @@
 
 ## Run application
 
+Correr en la terminal, parado en la carpeta base del proyecto:
+
 ```bash
 docker-compose up --build 
 ```
@@ -66,6 +68,12 @@ Esta la he utilizado para centralizar las configuraciones y los accesos externos
 # Tests
 Los test fueron realizados haciendo hincapie en la parte core, ya que contiene nustro negocio. 
 
+# Docker Hub
+https://hub.docker.com/r/castillofranciscodaniel/tenpo-challenge_app
+
+docker pull castillofranciscodaniel/tenpo-challenge_app
+
+# Fin!
 Mi intención no era hacer sobre ingeniera del proyecto, si no, intentar plasmar y demostrar mi capacidad con este
 challenge.
 
