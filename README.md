@@ -71,7 +71,9 @@ Los test fueron realizados haciendo hincapie en la parte core, ya que contiene n
 # Docker Hub
 https://hub.docker.com/r/castillofranciscodaniel/tenpo-challenge_app
 
+```bash
 docker pull castillofranciscodaniel/tenpo-challenge_app
+```
 
 # Fin!
 Mi intención no era hacer sobre ingeniera del proyecto, si no, intentar plasmar y demostrar mi capacidad con este
