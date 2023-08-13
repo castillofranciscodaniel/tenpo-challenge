@@ -24,7 +24,7 @@ docker-compose up --build
 
 http://localhost:8080/webjars/swagger-ui/index.html#/
 
-# Spring WebFlux
+# Spring WebFlux 3.1.2
 Se optó por utilizar WebFlux de forma transversal, para tener una api reactiva y de alto rendimiento.
 
 # PostgreSQL 
