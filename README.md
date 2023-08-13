@@ -44,7 +44,7 @@ bloqueantes.
 Para suplir con la restriction de 3 request/minuto, use la librería bucket4j-core, que de manera free, te deja
 limitar tu api hasta 20 request/minuto
 
-## Hexagonal architecture
+# Hexagonal architecture
 
 La idea de como está maquetado el proyecto, es que la capa core solo dependa de sí misma de tal modo que los casos de
 uso se valen de los puertos sin conocer las implementaciones de las mismas
@@ -56,7 +56,7 @@ migrar de motores de bd, drivers, librerías http, etc. sin requerir tocar nuest
     - exeption: las exepciones que utilizaremos en nuestro negocio.
     - models: las modelos que utilizaremos en nuestro negocio.
     - ports: contiene las interfaces que representan cierta funcionalidad que requerimos que luego seran implementadas 
-      por los adapters (patron Ports & Adapters).
+             por los adapters (patron Ports & Adapters).
     - usecase: contiene la lógica de negocio sirviendose de los ports. 
 
 ### Adapter:
